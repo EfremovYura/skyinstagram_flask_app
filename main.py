@@ -41,7 +41,8 @@ def page_post(postid):
 
 @app.route("/tag/<tagname>")
 def page_tags(tagname):
-    requested_posts = manager.search_for_posts(f"#{tagname}")
+    # Показать только 10 постов, если найдено больше 10.
+    requested_posts = manager.search_for_posts(f"#{tagname}")[:10]
     return render_template("tag.html",tagname=tagname,posts=requested_posts)
 
 
