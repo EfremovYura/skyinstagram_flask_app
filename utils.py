@@ -2,15 +2,14 @@ import json
 from copy import copy
 
 
-def load_json(file):
-    """Загружает список  из файла json"""
-
+def load_json(file: str) -> list[dict]:
+    """Загружает список из файла json."""
     with open(file, 'r', encoding='utf-8') as f:
         return json.load(f)
 
 
-def get_comments_ending_form(number):
-    """Возвращает форму слова комментарий в зависимости от количества"""
+def get_comments_ending_form(number: int) -> str:
+    """Возвращает форму слова комментарий в зависимости от количества."""
     if number in [11, 12, 13, 14]:
         return f"{number} комментариев"
     elif number % 10 == 1:
@@ -21,8 +20,8 @@ def get_comments_ending_form(number):
         return f"{number} комментариев"
 
 
-def add_tag_list(post):
-    """Добавляет 2 параметра с живыми  тэгами в пост"""
+def add_tag_list(post: dict) -> dict:
+    """Добавляет 2 параметра с живыми  тэгами в пост."""
     post = copy(post)
     words_list = post['content'].split(' ')
 
@@ -38,7 +37,7 @@ def add_tag_list(post):
             # убираем # из начала
             word = word[1:]
 
-            word_end = '' # окончание слова
+            word_end = ''
             if word[-1] in ",.!?:;":
                 # сохраняем окончание
                 word_end = word[-1]
@@ -57,8 +56,8 @@ def add_tag_list(post):
     return post
 
 
-def remove_tags_keys(post):
-    """Удаляет ключи с живыми тэгами из поста"""
+def remove_tags_keys(post: dict) -> dict:
+    """Удаляет ключи с живыми тэгами из поста."""
     post = copy(post)
     tags_to_del = ['tags_list', 'content_with_links']
     post_keys = post.keys()
